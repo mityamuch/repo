@@ -1,4 +1,4 @@
-# Fund_Labs_Sem2
+# Fund_Labs_4semestr
  | Lab | Mark |
 | ------ | ------ |
 | lab6.1 | Not ready yet |
