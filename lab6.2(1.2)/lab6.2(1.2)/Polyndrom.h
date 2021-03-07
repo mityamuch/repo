@@ -30,7 +30,22 @@ public:
     }
 
 
-    Polynom(char* equation){}
+    Polynom(const char* equation){
+        string str(equation);
+        string token;
+        for (const auto& c : str) {
+            if (c!='+')
+                token += c;
+            else {
+                if (!token.empty()) {
+                    parts.push_back(Monom(token.c_str()));
+                }
+                token.clear();
+            }
+        }
+        if (!token.empty())
+            parts.push_back(Monom(token.c_str()));
+    }
 
 
     Polynom(const Polynom& m) = default;
@@ -157,13 +172,14 @@ public:
     friend Polynom operator+ (const Monom& left, const Monom& right);
     friend Polynom operator- (const Monom& left, const Monom& right);
 
-    std::string convert() const { 
-        return "";
-    
-    
-    
-    
-    
+    std::string convert() const {
+        string result;
+        bool flag = true;
+        for (const auto& c : parts) {
+            result += ((flag) ? "" : "+") + c.convert();
+            flag = false;
+        }
+        return result;
     }
 };
 
@@ -200,10 +216,10 @@ public:
  }
 
  istream& operator>>(istream& stream, Polynom& m){
- 
- 
- 
- 
+     string equation;
+     stream >> equation;
+     Polynom result(equation.c_str());
+     m = result;
      return stream;
  }
  
@@ -228,12 +244,13 @@ public:
      return true;
  }
  bool Checkharmony(Polynom& m){
-     if (m.parts.empty())
+     Polynom newm(m);
+     if (newm.parts.empty())
          return true;
      string dif;
-     for (const auto& c : m.parts) {
+     for (const auto& c : newm.parts) {
          for (const auto& u : c.letters) {
-             if (dif.find(u.first, 0) == string::npos) {
+             if (dif.find(u.first) == string::npos) {
                  dif += u.first;
              }
              else
@@ -241,9 +258,9 @@ public:
          }
      }
      //вытащили в строку все имена переменных из полинома
-     m /= (dif.c_str());
-     m /= (dif.c_str());
-     if (m.parts.empty())
+     newm /= (dif.c_str());
+     newm /= (dif.c_str());
+     if (newm.parts.empty())
      {
          return true;
      }

@@ -120,18 +120,14 @@ public:
     friend bool Checkuniformity(Polynom& m);
     friend bool Checkharmony(Polynom& m);
     std::string convert() const {
-
-
-
-
-
-
-
-
-
-
-
-        return   "";
+        string result;
+        result = '$';
+        result += to_string(k);
+        for (const auto& c : letters) {
+            result+= c.first + string("^") + to_string(c.second);
+        }
+        result += '$';
+        return   result;
     }
 };
 ostream& operator<<(ostream& stream, const Monom& m) {
@@ -142,9 +138,10 @@ ostream& operator<<(ostream& stream, const Monom& m) {
     }
     return stream;
 }
+
 istream& operator>>(istream& stream, Monom& m) {
     string equation;
-    getline(stream,equation);
+    stream>>equation;
     Monom result(equation.c_str());
     m = result;
     return stream;
