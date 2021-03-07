@@ -6,10 +6,14 @@
 
 using namespace std;
 int main() {
-	Monom a("2xy2u200");
-	cout << a << endl;
-	Monom b;
-	b = a / ('u');
+	Monom a("2xy2");
+	Monom c("2x2y");
+	Polynom d(a);
+	Polynom e(c);
+	Polynom b;
+	b = d * a;
+	cout << a<<endl;
+	cout << c << endl;
 	cout << b;
 	return 0;
 }

@@ -56,7 +56,7 @@ public:
 
         }
 
-
+        return *this;
     }
 
     Monom operator+= (const Monom& right) {
@@ -120,6 +120,17 @@ public:
     friend bool Checkuniformity(Polynom& m);
     friend bool Checkharmony(Polynom& m);
     std::string convert() const {
+
+
+
+
+
+
+
+
+
+
+
         return   "";
     }
 };

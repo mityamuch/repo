@@ -7,8 +7,7 @@ using namespace std;
  class Polynom:public Tex_convertible {
 private:
     list<Monom> parts;
-    
-
+ 
     list<Monom>::iterator check(const Monom& x){
        return find_if(
            parts.begin(),
@@ -80,13 +79,31 @@ public:
         return *this;
     }
 
-    Polynom operator* (const Monom& m) {}
+    Polynom operator* (const Monom& m) {
 
-    Polynom& operator*= (const Monom& m) {}
+        Polynom result(*this);
+        return result *= m;
+    }
 
-    Polynom operator* (const Polynom& m) {}
+    Polynom& operator*= (const Monom& m) {
+        for (list<Monom>::iterator it = parts.begin();it != parts.end();it++) {
+            (*it) *= m;
+        }
+        return *this;
+    }
 
-    Polynom& operator*= (const Polynom& m) {}
+    Polynom operator* (const Polynom& m) {
+        Polynom result(*this);
+        return result *= m;
+    }
+
+    Polynom& operator*= (const Polynom& m) {
+            for (const auto& right_monom : m.parts) {
+                (*this) *= right_monom;
+            }
+        
+        return *this;
+    }
 
     Polynom operator/ (const char dif) const {
         Polynom result(*this);
@@ -131,7 +148,14 @@ public:
     friend Polynom operator+ (const Monom& left, const Monom& right);
     friend Polynom operator- (const Monom& left, const Monom& right);
 
-    std::string convert() const { return ""; }
+    std::string convert() const { 
+        return "";
+    
+    
+    
+    
+    
+    }
 };
 
  Polynom operator+ (const Monom& left, const Monom& right){
@@ -160,7 +184,7 @@ public:
  ostream& operator<<(ostream& stream, const Polynom& m){
      bool flag=true;
      for (const auto& c : m.parts) {
-         stream <<((flag)? "+":"") << c;
+         stream <<((flag)? "":"+") << c;
          flag = false;
      }
      return stream;
