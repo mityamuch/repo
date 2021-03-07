@@ -121,9 +121,18 @@ public:
         return *this;
     }
 
-    Polynom& operator/ ( const char* dif) {}
+    Polynom operator/ ( const char* dif) {
+        Polynom result(*this);
+        return result /= dif;
+    
+    }
 
-    Polynom& operator/= (const char* dif) {}
+    Polynom& operator/= (const char* dif) {
+        for (int i = 0;dif[i] != '\0';i++) {
+            (*this) /= dif[i];
+        }
+        return *this;
+    }
 
     bool operator== (const Polynom& m) {
         if (parts.size() != m.parts.size())
@@ -222,9 +231,25 @@ public:
      if (m.parts.empty())
          return true;
      string dif;
+     for (const auto& c : m.parts) {
+         for (const auto& u : c.letters) {
+             if (dif.find(u.first, 0) == string::npos) {
+                 dif += u.first;
+             }
+             else
+                 continue;
+         }
+     }
+     //вытащили в строку все имена переменных из полинома
+     m /= (dif.c_str());
+     m /= (dif.c_str());
+     if (m.parts.empty())
+     {
+         return true;
+     }
+     else
+     {
+         return false;
+     }
 
-
-
-
-     return true;
  }

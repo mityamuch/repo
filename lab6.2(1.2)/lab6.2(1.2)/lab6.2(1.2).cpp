@@ -13,11 +13,13 @@ int main() {
 	Polynom b;
 	Monom be;
 	b = d * e;
+	if (Checkharmony(b)==true);
+	{
+		cout << "true" << endl;
+	}
 	cout << a<<endl;
 	cout << c << endl;
 	cout << b<<endl;
-	be = a * c;
-	cout << be;
 	return 0;
 }
 
