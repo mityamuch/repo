@@ -2,7 +2,7 @@
  | Lab | Mark |
 | ------ | ------ |
 | lab6.1 | finished |
-| lab6.2 | ready for review |
+| lab6.2 | finished|
 | lab7 | Untested |
 | lab8 | Untested |
 
