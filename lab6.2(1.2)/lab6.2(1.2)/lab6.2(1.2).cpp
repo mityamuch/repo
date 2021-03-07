@@ -6,15 +6,18 @@
 
 using namespace std;
 int main() {
-	Monom a("2xy2");
-	Monom c("2x2y");
-	Polynom d(a);
+	Monom a("100x3y3");
+	Monom c("2x2y2");
+	Polynom d(a,c);
 	Polynom e(c);
 	Polynom b;
-	b = d * a;
+	Monom be;
+	b = d * e;
 	cout << a<<endl;
 	cout << c << endl;
-	cout << b;
+	cout << b<<endl;
+	be = a * c;
+	cout << be;
 	return 0;
 }
 
