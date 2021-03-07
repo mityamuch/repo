@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="lab6.2(1.2).cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Polyndrom.h" />
+    <ClInclude Include="Monom.h" />
+    <ClInclude Include="Tex_convertible.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

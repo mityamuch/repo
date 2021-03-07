@@ -1,38 +1,15 @@
-﻿#include <iostream>
-#include <memory.h>
-#include <map>
-using namespace std;
-//класс Monom
-class Monom {
-private:
-    map<char, int> letters;
-    int k;
-public:
-    Monom()=default; //конструктор без параметров
-    Monom(char* equation) {
-        int l=sscanf(equation, "%d", k);
-       
-     
-    }//конструктор с параметрами
-    Monom(const Monom& m) {
-        k = m.k;
-        letters = m.letters;
-    }//копирующий конструктор
-    ~Monom(); //деструктор
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include "Polyndrom.h"
 
-    Monom operator= (const Monom& m);   //оператор сложения
-    Polynom operator+ (const Monom& m);//оператор присваивания
-    Polynom operator+= (const Monom& m);
-    Polynom operator- (const Monom& m);
-    Polynom operator-= (const Monom& m);
-    Monom operator* (const Monom& m);
-    Monom operator*= (const Monom& m);
-    Monom operator/ (char dif);
-    Monom operator/= (char dif);
-    Monom operator== (const Monom& m);
-    Monom operator!= (const Monom& m);
-    friend ostream& operator<<(ostream& stream, const Monom& m);
-    friend istream& operator>>(istream& stream,Monom& m);
-};
+
+
+using namespace std;
+int main() {
+	Monom a("2xy2u200");
+	cout << "Hello world!" << endl;
+	return 0;
+}
+
 
 
