@@ -1,8 +1,8 @@
 # Fund_Labs_4semestr
  | Lab | Mark |
 | ------ | ------ |
-| lab6.1 | ready for review |
-| lab6.2 | Not ready yet |
+| lab6.1 | finished |
+| lab6.2 | ready for review |
 | lab7 | Untested |
 | lab8 | Untested |
 
