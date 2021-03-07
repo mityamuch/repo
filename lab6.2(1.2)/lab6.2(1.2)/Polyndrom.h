@@ -34,32 +34,79 @@ public:
     Polynom(char* equation){}
 
 
-    Polynom(Polynom& m) = default;
+    Polynom(const Polynom& m) = default;
 
     Polynom& operator= (const Polynom& m) {
         parts = m.parts;
         return *this;
     }//оператор присваивания
 
-    Polynom operator+ (const Polynom& m) {}
+    Polynom operator+ (const Polynom& m) {
 
-    Polynom& operator+= (const Polynom& m) {}
+        Polynom result(*this);
+        return result += m;
+    }
 
-    Polynom operator- (const Polynom& m) {}
+    Polynom& operator+= (const Polynom& m) {
+        
+        for (const auto& c : m.parts) {
+            list<Monom>::iterator it = check(c);
+            if (it == parts.end())
+                parts.push_back(c);
+            else
+                it->k += c.k;
+        }
+        return *this;
+    }
 
-    Polynom& operator-= (const Polynom& m) {}
+    Polynom operator- (const Polynom& m) {
+    
+        Polynom result(*this);
+        return result -= m;
+    }
+
+    Polynom& operator-= (const Polynom& m) {
+    
+        for (const auto& c : m.parts) {
+            list<Monom>::iterator it = check(c);
+            if (it == parts.end()) {
+                Monom newmon(c);
+                newmon.k *= (-1);
+                parts.push_back(newmon);
+            }
+            else
+                it->k -= c.k;
+        }
+        return *this;
+    }
+
+    Polynom operator* (const Monom& m) {}
+
+    Polynom& operator*= (const Monom& m) {}
 
     Polynom operator* (const Polynom& m) {}
 
     Polynom& operator*= (const Polynom& m) {}
 
-    Polynom operator/ (char dif) {}
+    Polynom operator/ (const char dif) const {
+        Polynom result(*this);
+        return result /= dif;
+    }
 
-    Polynom& operator/= (char dif) {}
+    Polynom& operator/= (const char dif) {
+        for (list<Monom>::iterator it = parts.begin();it != parts.end();) {
+            (*it) /= dif;
+            if (it->k == 0)
+                it = parts.erase(it);
+            else
+                it++;
+        }
+        return *this;
+    }
 
-    Polynom& operator/ (char* dif) {}
+    Polynom& operator/ ( const char* dif) {}
 
-    Polynom& operator/= (char* dif) {}
+    Polynom& operator/= (const char* dif) {}
 
     bool operator== (const Polynom& m) {
         if (parts.size() != m.parts.size())
@@ -84,7 +131,7 @@ public:
     friend Polynom operator+ (const Monom& left, const Monom& right);
     friend Polynom operator- (const Monom& left, const Monom& right);
 
-    std::string convert() const {}
+    std::string convert() const { return ""; }
 };
 
  Polynom operator+ (const Monom& left, const Monom& right){
@@ -111,9 +158,10 @@ public:
  }
 
  ostream& operator<<(ostream& stream, const Polynom& m){
+     bool flag=true;
      for (const auto& c : m.parts) {
-         stream  << c<<'+';
-
+         stream <<((flag)? "+":"") << c;
+         flag = false;
      }
      return stream;
  }
@@ -123,7 +171,7 @@ public:
  
  
  
- 
+     return stream;
  }
  
  bool Checkuniformity(Polynom& m){
@@ -147,5 +195,12 @@ public:
      return true;
  }
  bool Checkharmony(Polynom& m){
- 
+     if (m.parts.empty())
+         return true;
+     string dif;
+
+
+
+
+     return true;
  }

@@ -46,6 +46,7 @@ public:
         return result *= m;
          
     }
+
     Monom& operator*= (const Monom& m) {
         k *= m.k;
         for (const auto& c : m.letters) {
@@ -57,6 +58,7 @@ public:
 
 
     }
+
     Monom operator+= (const Monom& right) {
         if (letters != right.letters)
             throw logic_error("incompatible monoms");
@@ -65,6 +67,7 @@ public:
         }
         return *this;
     }
+
     Monom operator-= ( const Monom& right) {
         if (letters != right.letters)
             throw logic_error("incompatible monoms");
@@ -79,6 +82,7 @@ public:
         return result /= dif;
     
     }
+
     Monom& operator/= (char dif) {
         map<char, unsigned int>::iterator it = letters.find(dif);
         if (it == letters.end())
@@ -96,11 +100,13 @@ public:
         }
         return *this;
     }
+
     bool operator== (const Monom& m) {
         if (k == m.k && letters == m.letters)
             return true;
         return false;
     }
+
     bool operator!= (const Monom& m) {
         return !(*this == m);
     }
