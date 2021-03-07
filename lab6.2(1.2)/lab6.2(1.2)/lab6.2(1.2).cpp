@@ -7,7 +7,10 @@
 using namespace std;
 int main() {
 	Monom a("2xy2u200");
-	cout << "Hello world!" << endl;
+	cout << a << endl;
+	Monom b;
+	b = a / ('u');
+	cout << b;
 	return 0;
 }
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 using namespace std;
+class Polynom;
 class Monom :public Tex_convertible{
 private:
     std::map<char,unsigned int> letters;
@@ -37,6 +38,7 @@ public:
     Monom& operator= (const Monom& m) {
         k = m.k;
         letters = m.letters;
+        return *this;
     }
     
     Monom operator* (const Monom& m) const {
@@ -55,6 +57,23 @@ public:
 
 
     }
+    Monom operator+= (const Monom& right) {
+        if (letters != right.letters)
+            throw logic_error("incompatible monoms");
+        else {
+            k += right.k;
+        }
+        return *this;
+    }
+    Monom operator-= ( const Monom& right) {
+        if (letters != right.letters)
+            throw logic_error("incompatible monoms");
+        else {
+            k -= right.k;
+        }
+        return *this;
+    }
+
     Monom operator/ (char dif) const {
         Monom result(*this);
         return result /= dif;
@@ -88,6 +107,12 @@ public:
 
     friend ostream& operator<<(ostream& stream, const Monom& m);
     friend istream& operator>>(istream& stream, Monom& m);
+    //from polynom
+    friend class Polynom;
+    friend Polynom operator+ (const Monom& left, const Monom& right);
+    friend Polynom operator- (const Monom& left, const Monom& right);
+    friend bool Checkuniformity(Polynom& m);
+    friend bool Checkharmony(Polynom& m);
     std::string convert() const {
         return   "";
     }
@@ -98,11 +123,12 @@ ostream& operator<<(ostream& stream, const Monom& m) {
         stream <<'*'<< c.first << "^" << c.second;
 
     }
-
+    return stream;
 }
 istream& operator>>(istream& stream, Monom& m) {
     string equation;
     getline(stream,equation);
     Monom result(equation.c_str());
     m = result;
+    return stream;
 }
