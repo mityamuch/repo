@@ -34,23 +34,48 @@ public:
     Polynom(char* equation){}
 
 
-    Polynom(Polynom& m ){}
+    Polynom(Polynom& m) = default;
 
-    
-    
-    Polynom& operator= (const Polynom& m) {}
-    Polynom operator+ (const Polynom& m) {}//оператор присваивания
+    Polynom& operator= (const Polynom& m) {
+        parts = m.parts;
+        return *this;
+    }//оператор присваивания
+
+    Polynom operator+ (const Polynom& m) {}
+
     Polynom& operator+= (const Polynom& m) {}
+
     Polynom operator- (const Polynom& m) {}
+
     Polynom& operator-= (const Polynom& m) {}
+
     Polynom operator* (const Polynom& m) {}
+
     Polynom& operator*= (const Polynom& m) {}
+
     Polynom operator/ (char dif) {}
+
     Polynom& operator/= (char dif) {}
+
     Polynom& operator/ (char* dif) {}
+
     Polynom& operator/= (char* dif) {}
-    Polynom& operator== (const Polynom& m) {}
-    Polynom& operator!= (const Polynom& m) {}
+
+    bool operator== (const Polynom& m) {
+        if (parts.size() != m.parts.size())
+            return false;
+        for (const auto& c : m.parts) {
+
+            if (check(c)==parts.end())
+                return false;  
+        }
+        return true;
+    }
+
+    bool operator!= (const Polynom& m) {
+        return !(*this == m);
+    }
+
     friend ostream& operator<<(ostream& stream, const Polynom& m);
     friend istream& operator>>(istream& stream, Polynom& m);
     friend bool Checkuniformity(Polynom& m);
@@ -83,6 +108,22 @@ public:
      else
          it->k -= right.k;
      return result;
+ }
+
+ ostream& operator<<(ostream& stream, const Polynom& m){
+     for (const auto& c : m.parts) {
+         stream  << c<<'+';
+
+     }
+     return stream;
+ }
+
+ istream& operator>>(istream& stream, Polynom& m){
+ 
+ 
+ 
+ 
+ 
  }
  
  bool Checkuniformity(Polynom& m){
