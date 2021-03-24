@@ -13,7 +13,7 @@ private:
            parts.begin(),
            parts.end(),
            [x](const Monom& m)
-                {return (m.letters == x.letters) ? true : false;});
+                {return (m.letters == x.letters); /*? true : false;*/});
     }
 
 public:
@@ -57,8 +57,10 @@ public:
 
     Polynom operator+ (const Polynom& m) {
 
-        Polynom result(*this);
-        return result += m;
+        return Polynom(*this) += m;
+// TODO: гавно :)
+        /*Polynom result(*this);
+        return result += m;*/
     }
 
     Polynom& operator+= (const Polynom& m) {
@@ -88,8 +90,12 @@ public:
                 newmon.k *= (-1);
                 parts.push_back(newmon);
             }
-            else
+            else     
+                
                 it->k -= c.k;
+            if (it->k == 0) {
+                parts.erase(it);
+            }
         }
         return *this;
     }
@@ -164,7 +170,7 @@ public:
         return !(*this == m);
     }
 
-    friend ostream& operator<<(ostream& stream, const Polynom& m);
+    friend ostream& operator<<(ostream& stream, Polynom&& m);
     friend istream& operator>>(istream& stream, Polynom& m);
     friend bool Checkuniformity(Polynom& m);
     friend bool Checkharmony(Polynom& m);
@@ -206,7 +212,7 @@ public:
      return result;
  }
 
- ostream& operator<<(ostream& stream, const Polynom& m){
+ ostream& operator<<(ostream& stream, Polynom&& m){
      bool flag=true;
      for (const auto& c : m.parts) {
          stream <<((flag)? "":"+") << c;
@@ -243,7 +249,7 @@ public:
      }
      return true;
  }
- bool Checkharmony(Polynom& m){
+ bool Checkharmony(const Polynom& m){
      Polynom newm(m);
      if (newm.parts.empty())
          return true;

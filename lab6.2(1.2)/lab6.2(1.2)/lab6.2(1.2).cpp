@@ -5,6 +5,7 @@
 
 
 using namespace std;
+
 int main() {
     try {
         Polynom first;
@@ -59,6 +60,10 @@ int main() {
     catch (std::exception a) {
         std::cerr << "We caught an exception :" << a.what() << '\n';
     }
+
+    Polynom p1, p2;
+    std::cout << p1 + p2;
+
 	return 0;
 }
 
