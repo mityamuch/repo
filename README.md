@@ -9,7 +9,7 @@
 | lab7.4 | Untested |
 | lab8.1 | Untested |
 | lab8. | Untested |
-| lab8. |zalupa konchennaya|
+| lab8. |Untested|
 
 # lab6
 
