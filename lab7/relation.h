@@ -65,10 +65,10 @@ private:
     };
     
     list data;
-	std::vector <binary_tree<T>*> indexes;
+	std::vector <binary_tree<T*>*> indexes;
 public:
 	void Add(T x) {
-        Node* node = data.push_back(x);
+        T* node = data.push_back(x);
         for (auto& c : indexes) {
             c->Add(node);
         }
@@ -88,15 +88,16 @@ public:
         return &((*result)->val);
     }
 
-	void Addindex(binary_tree<T>* ind){
+	void Addindex(binary_tree<T*>* ind){
         indexes.push_back(ind);
         Node* p = data.first;
         while (p && p->next != nullptr) {
-            ind->Add(p);
+            ind->Add(&p->val);
             p = p->next;
         }
     
     }
+
 	void Removeindex(int indexnum){
         delete indexes[indexnum];
         indexes.erase(indexes.begin()+indexnum);
