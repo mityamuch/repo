@@ -77,7 +77,7 @@ public:
 	bool operator()(Contract* const& x, Contract* const& y) {
 		double x_dur = difftime(mktime(&x->starttime),mktime(&x->endtime));
 		double y_dur = difftime(mktime(&y->starttime), mktime(&y->endtime));
-		return x < y;
+		return x_dur < y_dur;
 	}
 };
 
@@ -209,8 +209,8 @@ int main()
 	 contracts.Find(Contract{"",0,300},0)->print();
 	 contracts.Find(Contract{ "Muhanov dmitriy ilyich",1 }, 2)->print();
 	 contracts.Find(Contract{ "Muhanov dmitriy ilyich",4 }, 2)->print();
-	 contracts.Find(Contract{ "",0,40000 }, 0)->print();
-	 contracts.Find(Contract{ "kalabuhin anton olegovich",1 },2)->print();
+	 contracts.Find(Contract{ "",0,0,tm{0,0,0,21,1,2003},tm{0,0,0,25,2,2008} }, 1)->print();
+	 
 
 	/*
 	x.Add(1);
@@ -224,4 +224,6 @@ int main()
 	x.Remove(47);
 	x.print();
 	*/
+
+
 }
