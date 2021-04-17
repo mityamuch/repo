@@ -30,17 +30,17 @@ private:
             return &last->val;
         }
 
-        Node* find(T _val) {
+        Node* find(T* _val) {
             Node* p = first;
-            while (p && p->val != _val) p = p->next;
-            return (p && p->val == _val) ? p : nullptr;
+            while (p && &p->val != _val) p = p->next;
+            return (p && &p->val == _val) ? p : nullptr;
         }
 
-        void remove(T _val) {
+        void remove(T* _val) {
             if (is_empty()) return;
             Node* slow = first;
             Node* fast = first->next;
-            while (fast && fast->val != _val) {
+            while (fast && &fast->val != _val) {
                 fast = fast->next;
                 slow = slow->next;
             }
@@ -74,18 +74,18 @@ public:
         }
     }
 
-	void Remove(T x){
+	void Remove(T* x){
         Node* node = data.find(x);
         for (auto& c : indexes) {
-            c->Remove(node);
+            c->Remove(&node->val);
         }
         data.remove(x);
 
     }
 
 	T* Find(T x,int indexnum){
-        auto result=indexes[indexnum]->Find(indexnum);
-        return &((*result)->val);
+        auto result=indexes[indexnum]->Find(&x);
+        return result == nullptr ? nullptr : *result;
     }
 
 	void Addindex(binary_tree<T*>* ind){
@@ -99,9 +99,7 @@ public:
     }
 
 	void Removeindex(int indexnum){
-        delete indexes[indexnum];
         indexes.erase(indexes.begin()+indexnum);
-        
     }
 
 

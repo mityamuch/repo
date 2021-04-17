@@ -28,6 +28,7 @@ private:
 		U m_functor;
 	};
 
+
 public: 
 	template <typename U>
 	binary_tree(U functor)  {

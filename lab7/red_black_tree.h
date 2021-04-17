@@ -16,6 +16,7 @@ private:
 		TreeStruct* left;
 		TreeStruct* parent;
 	};
+
     TreeStruct* newTree(int key, int info, TreeStruct* parent) {
         TreeStruct* curr = new TreeStruct;
         curr->info = info;

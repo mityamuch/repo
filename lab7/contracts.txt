@@ -1,0 +1,23 @@
+Muhanov dmitriy ilyich
+{
+	dogovor#1 nach 21.01.2001 kon 25.02.2002 25000
+	dogovor#2 nach 03.02.2002 kon 06.03.2002 300
+	dogovor#3 nach 27.04.2010 kon 25.02.2015 600
+	dogovor#4 nach 21.01.2003 kon 25.02.2008 800
+	dogovor#5 nach 02.01.2001 kon 02.02.2002 1200
+}
+karp artem evgenevich
+{
+	dogovor#1 nach 21.01.2020 kon 25.02.2021 50000
+	dogovor#2 nach 03.02.2002 kon 06.03.2002 450000
+}
+ilya irbitscii erzhanovich 
+{
+	dogovor#1 nach 21.01.2075 kon 25.02.2080 40000
+	dogovor#2 nach 13.02.2002 kon 10.03.2002 3005
+}
+kalabuhin anton olegovich
+{
+	dogovor#1 nach 21.01.2014 kon 25.02.2015 70000
+	dogovor#2 nach 03.02.2015 kon 06.03.2017 30045
+}

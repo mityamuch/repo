@@ -24,23 +24,23 @@ private:
 			t->height = 0;
 			t->left = t->right = NULL;
 		}
-		else if (this->m_functor->CallFunctor(x, t->data))
+		else if (!(this->m_functor->CallFunctor(t->data,x )))
 		{
 			t->left = insert(x, t->left);
 			if (height(t->left) - height(t->right) == 2)
 			{
-				if (x < t->left->data)
+				if (!(this->m_functor->CallFunctor(t->left->data,x )))
 					t = singleRightRotate(t);
 				else
 					t = doubleRightRotate(t);
 			}
 		}
-		else if (this->m_functor->CallFunctor(t->data, x))
+		else if (this->m_functor->CallFunctor(t->data,x))
 		{
 			t->right = insert(x, t->right);
 			if (height(t->right) - height(t->left) == 2)
 			{
-				if (x > t->right->data)
+				if (this->m_functor->CallFunctor(t->right->data, x))
 					t = singleLeftRotate(t);
 				else
 					t = doubleLeftRotate(t);
@@ -153,9 +153,9 @@ private:
 	}
 
 	T* search(const T& x, node* t) {
-		if (!this->m_functor->CallFunctor(t->data, x) || !this->m_functor->CallFunctor(x, t->data))
+		if (!this->m_functor->CallFunctor(t->data, x) && !this->m_functor->CallFunctor(x, t->data))
 			return &(t->data);
-		else if (this->m_functor->CallFunctor(t->data, x)) {
+		else if (this->m_functor->CallFunctor(x, t->data)) {
 			if (t->left == nullptr)
 				return nullptr;
 			return search(x, t->left);
@@ -172,15 +172,6 @@ private:
 		printtree(t->left);
 		std::cout << t->data << std::endl;
 		printtree(t->right);
-
-	}
-
-public:
-	template <typename U>
-	avl_tree(U func)
-		:binary_tree<T>(func)
-	{
-		root = NULL;
 	}
 	void clean_tree(node* t) {
 		if (t == nullptr)
@@ -189,6 +180,14 @@ public:
 		clean_tree(t->right);
 		delete t;
 	}
+public:
+	template <typename U>
+	avl_tree(U func)
+		:binary_tree<T>(func)
+	{
+		root = NULL;
+	}
+	
 
 	~avl_tree() {
 		clean_tree(root);
