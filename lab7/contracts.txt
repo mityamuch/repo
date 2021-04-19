@@ -1,5 +1,5 @@
 Muhanov dmitriy ilyich
-{
+{			
 	dogovor#1 nach 21.01.2001 kon 25.02.2002 25000
 	dogovor#2 nach 03.02.2002 kon 06.03.2002 300
 	dogovor#3 nach 27.04.2010 kon 25.02.2015 600
