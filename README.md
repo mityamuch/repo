@@ -3,13 +3,15 @@
 | ------ | ------ |
 | lab6.1 | finished |
 | lab6.2 | finished|
-| lab7.1 | Untested |
-| lab7.2 | Untested |
-| lab7.3 | Untested |
-| lab7.4 | Untested |
-| lab8.1 | Untested |
-| lab8. | Untested |
-| lab8. |Untested|
+| lab7.1 | finished |
+| lab7.2 | finished |
+| lab7.3 | finished |
+| lab7.4 | finished |
+| lab8.1 | started |
+| lab8.2 | started |
+| lab8.3 |impossible |
+| lab9.1 | untested |
+| lab9.2 | untested |
 
 # lab6
 
