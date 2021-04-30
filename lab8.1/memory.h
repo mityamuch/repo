@@ -6,10 +6,11 @@ public:
 
 };
 
+
 class kusokpam
 {
 public:
-	kusokpam();
+	kusokpam()= default;
 	virtual ~kusokpam(){};
 	kusokpam(const kusokpam& a )=delete;
 	virtual std::string read(size_t count) = 0;

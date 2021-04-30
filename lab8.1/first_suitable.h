@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <list>
 #include "memory.h"
 #include <algorithm>
@@ -44,9 +45,8 @@ class first_suitable:public memory
 {
 public:
 	first_suitable(size_t N):memory(N) {
-		freeblocks.push_back(block(N, m_buffer));
+		freeblocks.emplace_back(N, m_buffer);
 	}
-	~first_suitable();
 
 	void deallocate(kusokpam* pam) {
 		auto it = usedblocks.begin();
@@ -97,7 +97,15 @@ public:
 		}
 	}
 
+public:
+	void print_leaked_blocks() {
 
+		for (auto& i : usedblocks)
+		{
+			std::cout << (void*)i.m_pointer <<"\t"<<i.m_size<<std:: endl;
+
+		}
+	}
 
 	
 private:
@@ -120,7 +128,21 @@ private:
 		}
 		return nullptr;
 	}
-	void compact() override{}
+	void compact() override{
+		auto buffer_copy = m_buffer;
+		for (auto& i : usedblocks)
+		{
+			if (i.m_pointer == buffer_copy) {
+				continue;
+			}
+			memcpy(buffer_copy, i.m_pointer, i.m_size);
+			auto end_ = buffer_copy + i.m_size;
+			i.m_pointer = buffer_copy;
+			buffer_copy = end_;
+		}
+		freeblocks.clear();
+		freeblocks.emplace_back(m_size - (buffer_copy - m_buffer), buffer_copy);
+	}
 
 
 	

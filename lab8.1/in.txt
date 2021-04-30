@@ -1,0 +1,12 @@
+100
+var1=allocate(10)
+var2=var1
+var3=allocate(20)
+var1=var3
+dealloc(var1)
+dealloc(var2)
+var4=allocate(20)
+var5=allocate(20)
+var6=allocate(20)
+dealloc(var4)
+var6=allocate(40)
