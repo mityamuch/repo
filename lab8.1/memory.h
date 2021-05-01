@@ -35,6 +35,8 @@ public:
 		m_size = N;
 	}
 
+
+
 	~memory(){
 		delete[] m_buffer;
 	}
