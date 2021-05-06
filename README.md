@@ -12,7 +12,7 @@
 | lab8.3 |impossible |
 | lab9.1 | untested |
 | lab9.2 | untested |
-
+| Курсач | started  |
 # lab6
 
 ## 0 
