@@ -3,43 +3,22 @@
 #include <list>
 #include "memory.h"
 #include <algorithm>
+
 class block : public kusokpam
 {
+	friend class first_suitable;
+
 public:
 	block(size_t size,char* pointer )
-		:m_size(size),m_pointer(pointer){}
+		:m_size(size), kusokpam(pointer){}
 
-	std::string read(size_t count) {
-		std::string str;
-		if (count > m_size)
-			throw(allocassert("ti chto durak lol"));
-		for (size_t i = 0; i <count; i++)
-		{
-			str += m_pointer[i];
-		}
-		return str;
-	}
-
-	void write(std::string  bytes) {
-
-		if(bytes.size()>m_size)
-			throw(allocassert("ti chto durak lol"));
-		char* m_pointer_copy = m_pointer;
-		for (auto& i : bytes)
-		{
-			*m_pointer_copy = i;
-			m_pointer_copy++;
-		}
+	size_t get_size() override {
+		return m_size;
 	}
 
 private:
 	size_t m_size;
-	char * m_pointer;
-	friend class first_suitable;
 };
-
-
-
 
 class first_suitable:public memory
 {
@@ -48,109 +27,89 @@ public:
 		freeblocks.emplace_back(N, m_buffer);
 	}
 
-	void deallocate(kusokpam* pam) {
-		auto it = usedblocks.begin();
-		for (;it != usedblocks.end(); it++)
-		{
-			if ((static_cast<block*> (pam)->m_pointer == it->m_pointer  )){
-				break;
-			}
-		}
-		if (it==usedblocks.end())
-		{
-			throw(allocassert("cant find deallocated block"));
-		}
-
-		block resultblock(it->m_size, it->m_pointer);
-		usedblocks.erase(it);
-
-		it = freeblocks.begin();
-		for (;it != freeblocks.end(); it++)
-		{
-			if ((static_cast<block*> (pam)->m_pointer == it->m_pointer)) {
-				break;
-			}
-		}
-
-		if ( it != freeblocks.begin()) {
-			if (std::prev(it)->m_pointer + std::prev(it)->m_size == resultblock.m_pointer) {
-				(--it)->m_size += resultblock.m_size;
-			}
-			else
-			{
-				it=freeblocks.emplace(it,resultblock.m_size,resultblock.m_pointer);
-			}
-			
-		}
-		else
-		{
-			it = freeblocks.emplace(it, resultblock.m_size, resultblock.m_pointer);
-		}
-
-
-
-		if (std::next(it) != freeblocks.end()) {
-			if (std::next(it)->m_pointer == resultblock.m_pointer+resultblock.m_size) {
-				it->m_size += std::next(it)->m_size;
-				freeblocks.erase(std::next(it));
-			}
-		}
-	}
-
-public:
-	void print_leaked_blocks() {
-
+	void print_leaked_blocks() override
+	{
 		for (auto& i : usedblocks)
 		{
-			std::cout << (void*)i.m_pointer <<"\t"<<i.m_size<<std:: endl;
-
+			std::cout << (void*)i.m_pointer << "\t" << i.get_size() << std::endl;
 		}
 	}
-
 	
 private:
-	kusokpam* findfreeblock(size_t size) override{
+	kusokpam* try_allocate_block(size_t size) override{
 		for (auto& i : freeblocks)
 		{
 			if (i.m_size >= size) {
 				char* pointer_copy = i.m_pointer;
 				i.m_size -= size;
 				i.m_pointer += size;
-				auto it = usedblocks.begin();
-				for (;it != usedblocks.end(); it++)
-				{
-					if (it->m_pointer > pointer_copy)
-						break;
-				}
+				auto it = std::find_if(usedblocks.begin(), usedblocks.end(), [&](const block& b) {return b > pointer_copy;});
 				return &(*usedblocks.emplace(it, size, pointer_copy));
 			}
-
 		}
 		return nullptr;
 	}
+
 	void compact() override{
 		auto buffer_copy = m_buffer;
 		for (auto& i : usedblocks)
 		{
-			if (i.m_pointer == buffer_copy) {
-				continue;
+			if (i.m_pointer != buffer_copy) {
+				memcpy(buffer_copy, i.m_pointer, i.get_size());
 			}
-			memcpy(buffer_copy, i.m_pointer, i.m_size);
-			auto end_ = buffer_copy + i.m_size;
 			i.m_pointer = buffer_copy;
-			buffer_copy = end_;
+			buffer_copy += i.get_size();
 		}
 		freeblocks.clear();
 		freeblocks.emplace_back(m_size - (buffer_copy - m_buffer), buffer_copy);
 	}
 
+	std::pair<char*, size_t> find_used_block(kusokpam* pam) override 
+	{
+		auto it = std::find_if(usedblocks.begin(), usedblocks.end(), [&](const block& b) {return pam == &b;});
+		if (it == usedblocks.end())
+		{
+			throw(allocassert("cant find deallocated block"));
+		}
 
-	
+		block resultblock(it->m_size, it->m_pointer);
+		usedblocks.erase(it);
+		return std::make_pair(resultblock.m_pointer, resultblock.m_size);
+	}
 
+	std::pair<char*, size_t> try_extend_left(char* block_to_free, size_t size) override
+	{
+		auto it = std::find_if(freeblocks.begin(), freeblocks.end(), [&](const block& b) {return b > block_to_free;});
+
+		if (it != freeblocks.begin()) {
+			if (std::prev(it)->m_pointer + std::prev(it)->m_size == block_to_free) {
+				size += (--it)->m_size;
+				freeblocks.erase(it);
+			}
+		}
+		return std::make_pair(block_to_free, size);
+	}
+
+	std::pair<char*, size_t> try_extend_right(char* block_to_free, size_t size) override
+	{
+		auto it = std::find_if(freeblocks.begin(), freeblocks.end(), [&](const block& b) {return b > block_to_free;});
+
+		if (std::next(it) != freeblocks.end()) {
+			if (std::next(it)->m_pointer == block_to_free + size) {
+				size += (++it)->m_size;
+				freeblocks.erase(it);
+			}
+		}
+		return std::make_pair(block_to_free, size);
+	}
+
+	void add_to_free_blocks(char* block_to_free, size_t size) override
+	{
+		auto it = std::find_if(freeblocks.begin(), freeblocks.end(), [&](const block& b) {return b > block_to_free;});
+		freeblocks.emplace(it, size, block_to_free);
+	}
 
 private:
 	std::list<block> freeblocks;
 	std::list<block> usedblocks;
-
-
 };

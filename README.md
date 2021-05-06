@@ -7,7 +7,7 @@
 | lab7.2 | finished |
 | lab7.3 | finished |
 | lab7.4 | finished |
-| lab8.1 | started |
+| lab8.1 | finished |
 | lab8.2 | started |
 | lab8.3 |impossible |
 | lab9.1 | untested |
