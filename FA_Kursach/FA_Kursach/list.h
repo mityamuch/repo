@@ -19,8 +19,6 @@ class List
 
 
 public:
-
-    // Конструктор
     List() {
         Head = Tail = NULL;
         Count = 0;
@@ -50,7 +48,7 @@ public:
             return temp;
     }
 
-    void AddTail(int n) {
+    void push_back(int n) {
         Elem* temp = new Elem;
         temp->next = 0;
         temp->data = n;
@@ -66,7 +64,7 @@ public:
         Count++;
     }
 
-    void AddHead(int n) {
+    void push_forward(int n) {
         Elem* temp = new Elem;
         temp->prev = 0;
         temp->data = n;

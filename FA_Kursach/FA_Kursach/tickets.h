@@ -1,10 +1,11 @@
 #pragma once
-
+#include <vector>
 
 class v_ticket
 {
 public:
-	virtual ~v_ticket();
+	virtual ~v_ticket()=0;
+	virtual std::vector<int> getdigits() = 0;
 private:
 };
 
@@ -19,7 +20,15 @@ public:
 		}
 	}
 
+	std::vector<int> getdigits() override{
+		std::vector<int> digits;
+		for (size_t i = 0; i < 5; i++)
+		{
+			digits.push_back(m_digits[i]);
+		}
 
+		return digits;
+	}
 
 private:
 
@@ -38,7 +47,16 @@ public:
 			m_digits[i] = digits[i];
 		}
 	}
+	std::vector<int> getdigits() override{
+		std::vector<int> digits;
+		for (size_t i = 0; i < 6; i++)
+		{
+			digits.push_back(m_digits[i]);
+		}
 
+		return digits;
+
+	}
 
 
 private:

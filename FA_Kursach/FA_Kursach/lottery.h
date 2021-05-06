@@ -1,6 +1,8 @@
 #pragma once
 #include "fabrica.h"
 #include <deque>
+
+
 const int size_of_circulation = 25000000;
 
 
@@ -34,6 +36,16 @@ private:
 		for (size_t i = 0; i < size_of_circulation; i++)
 		{
 			Tickets.push_back(factory.maketicket());
+		}
+		std::shared_ptr<v_ticket> win_ticket = factory.maketicket();
+		std::vector<int> win_digits = win_ticket->getdigits();
+		for (auto& c : win_digits)
+		{
+
+
+
+
+
 		}
 
 

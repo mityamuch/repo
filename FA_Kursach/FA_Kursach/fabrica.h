@@ -8,7 +8,7 @@ class abstr_factory
 {
 public:
 
-	virtual ~abstr_factory();
+	virtual ~abstr_factory()=0;
 	virtual std::shared_ptr<v_ticket> maketicket() = 0;
 	 
 private:
@@ -21,7 +21,7 @@ public:
 	fabric_5_36() {
 		serial = 0;
 	}
-	~fabric_5_36 ();
+
 	std::shared_ptr<v_ticket> maketicket() override {
 		srand(time(0));
 		int digits[5];
@@ -50,3 +50,36 @@ private:
 };
 
 
+class fabric_6_49 :public abstr_factory
+{
+public:
+	fabric_6_49() {
+		serial = 0;
+	}
+
+	std::shared_ptr<v_ticket> maketicket() override {
+		srand(time(0));
+		int digits[6];
+		for (size_t i = 0; i < 6; )
+		{
+			int a = 1 + rand() % 49;
+			bool flag = true;
+			for (size_t k = 0; k < i; k++)
+			{
+				if (digits[k] == a) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag) {
+				digits[i] = a;
+				i++;
+			}
+		}
+		serial += 1;
+		return  std::shared_ptr<v_ticket>{(v_ticket*)(new ticket_6_49(digits, serial))};
+	}
+
+private:
+	int serial;
+};
