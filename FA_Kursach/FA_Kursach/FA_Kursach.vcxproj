@@ -141,6 +141,12 @@
   <ItemGroup>
     <ClCompile Include="FA_Kursach.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fabrica.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="lottery.h" />
+    <ClInclude Include="tickets.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
