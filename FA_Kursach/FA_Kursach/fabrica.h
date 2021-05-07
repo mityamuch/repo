@@ -80,6 +80,7 @@ public:
 		return  std::shared_ptr<v_ticket>{(v_ticket*)(new ticket_6_49(digits, serial))};
 	}
 
+
 private:
 	int serial;
 };

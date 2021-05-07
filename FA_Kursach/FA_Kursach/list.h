@@ -27,6 +27,7 @@ public:
     ~List() {
     }
 
+
     Elem<T>* GetElem(int pos) {
         Elem* temp = Head;
         if (pos < 1 || pos > Count)

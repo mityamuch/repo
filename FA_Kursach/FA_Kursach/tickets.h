@@ -6,6 +6,7 @@ class v_ticket
 public:
 	virtual ~v_ticket()=0;
 	virtual std::vector<int> getdigits() = 0;
+	virtual int getid() = 0;
 private:
 };
 
@@ -28,6 +29,10 @@ public:
 		}
 
 		return digits;
+	}
+
+	int getid() override {
+		return m_id;
 	}
 
 private:
@@ -58,6 +63,9 @@ public:
 
 	}
 
+	int getid()override {
+		return m_id;
+	}
 
 private:
 
