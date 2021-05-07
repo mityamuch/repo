@@ -5,6 +5,7 @@ using namespace std;
 template <typename T>
 struct Elem
 {
+
     T data; // данные
     Elem* next, * prev;
 };

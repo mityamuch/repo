@@ -4,7 +4,7 @@
 class v_ticket
 {
 public:
-	virtual ~v_ticket()=0;
+	virtual ~v_ticket() {};
 	virtual std::vector<int> getdigits() = 0;
 	virtual int getid() = 0;
 private:
