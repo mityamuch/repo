@@ -8,6 +8,7 @@ class abstr_factory
 {
 public:
 
+
 	virtual ~abstr_factory() {};
 	virtual  std::shared_ptr<v_ticket> maketicket() const = 0;
 	 

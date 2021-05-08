@@ -1,23 +1,31 @@
 ﻿#include <iostream>
-#include "list.h"
 #include "lottery.h"
+#include "history.h"
+
+
+using namespace std;
+
+
 
 int main()
 {
-	Lottery newlottery;
-	deque<win_ticket_t> result = newlottery.start_6_49();
+
+	History myhistory;
+	
+	shared_ptr< Lottery<Container>> newlottery= shared_ptr< Lottery<Container>>(new Lottery<Container>);
+	newlottery->start_6_49();
 	//newlottery.print_results(result);
 	cout << "-----------------------------------------------------------------------------------------------" << endl;
-	newlottery.print_stat(result);
+	newlottery->print_stat();
 	cout << "-----------------------------------------------------------------------------------------------" << endl;
 
-	int id;
-	vector<win_ticket_t> resultwin;
-	int win;
-
-	while (true) {
+	
+		int id;
+		vector<win_ticket_t> resultwin;
+		int win;
+		while (true) {
 		int flag;
-		cout << "Enter 1 to find by win , 2 to find by id or 0 to out" << endl;
+		cout << "Enter:\n 1 to find by win, \n 2 to find by id,\n 3 to start new lottery, \n 0 to out" << endl;
 		cin >> flag;
 		switch (flag)
 		{
@@ -27,28 +35,31 @@ int main()
 		case 1:
 			cout << "Enter win:" << endl;
 			cin >> win;
-			resultwin = newlottery.searchbywin(win,result);
+			resultwin = newlottery->searchbywin(win);
 			for (auto& i : resultwin)
 			{
-				cout << "n";
-				cout << i.ticket->getid() << "\t";
-				cout << "win" << "\t";
-				cout << i.win << endl;
+				cout << "n" << i.ticket->getid() << "\t" << "win:" << "\t" << i.win << endl;
 			}
 			break;
 		case 2:
 			cout << "Enter id:" << endl;
 			cin >> id;
-			newlottery.searchbyid(id,result);
-
-
-
+			newlottery->searchbyid(id);
+			break;
+		case 3:
+			myhistory.add(newlottery);
+			newlottery = shared_ptr< Lottery<Container>>(new Lottery<Container>);
+			newlottery->start_6_49();
+			//newlottery.print_results(result);
+			cout << "-----------------------------------------------------------------------------------------------" << endl;
+			newlottery->print_stat();
+			cout << "-----------------------------------------------------------------------------------------------" << endl;
 			break;
 		default:
 			break;
 		}
 	}
 
-
+	
 
 }

@@ -13,6 +13,7 @@ private:
 class ticket_5_36:public v_ticket
 {
 public:
+
 	ticket_5_36(int* digits, int serial) :m_id(serial)
 	{
 		for (size_t i = 0; i < 5; i++)

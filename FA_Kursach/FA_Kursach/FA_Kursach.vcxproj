@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fabrica.h" />
+    <ClInclude Include="history.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="lottery.h" />
     <ClInclude Include="tickets.h" />
