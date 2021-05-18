@@ -1,0 +1,20 @@
+100
+{
+	PrintVars;
+	var1=new(10);
+	{
+		var2=new(25);
+		PrintVars;
+		{
+			{
+				var3=new(7);
+			}
+			var5=new(11);
+			PrintVars;
+			var21=new(23);
+		}
+		var22=new(85);
+	}
+	var2=new(9);
+	PrintVars;
+}
