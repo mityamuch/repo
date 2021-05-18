@@ -35,7 +35,7 @@ public:
 			{
 				if (digits[k] == a) {
 					flag = false;
-					break;
+					break; 
 				}
 			}
 			if (flag) {

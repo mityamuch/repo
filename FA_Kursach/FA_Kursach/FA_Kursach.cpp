@@ -13,7 +13,7 @@ int main()
 	History myhistory;
 	
 	shared_ptr< Lottery<Container>> newlottery= shared_ptr< Lottery<Container>>(new Lottery<Container>);
-	newlottery->start_6_49();
+	newlottery->start_5_36();
 	//newlottery.print_results(result);
 	cout << "-----------------------------------------------------------------------------------------------" << endl;
 	newlottery->print_stat();
@@ -49,7 +49,7 @@ int main()
 		case 3:
 			myhistory.add(newlottery);
 			newlottery = shared_ptr< Lottery<Container>>(new Lottery<Container>);
-			newlottery->start_6_49();
+			newlottery->start_5_36();
 			//newlottery.print_results(result);
 			cout << "-----------------------------------------------------------------------------------------------" << endl;
 			newlottery->print_stat();

@@ -4,7 +4,7 @@
 #include <deque>
 
 template <typename T>
-using Container = std::deque<T>;
+using Container = list<T>;
 
 class History
 {
