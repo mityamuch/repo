@@ -14,6 +14,7 @@
 			var21=new(23);
 		}
 		var22=new(85);
+		var23=new(50);
 	}
 	var2=new(9);
 	PrintVars;

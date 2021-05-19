@@ -29,7 +29,7 @@ public:
 		for (size_t i = LogMinBlockSize; i <= m_N; ++i)
 		{
 			auto& avail =  m_avail[i - LogMinBlockSize];
-			if (i == m_N - 1)
+			if (i == m_N)
 			{
 				auto freeBlock = (FreeBlockPrefix*)m_buffer;
 				avail.next = freeBlock;
@@ -56,7 +56,8 @@ public:
 	char* Alloc(size_t size)
 	{
 		//	Step 1
-		size_t k = (size_t)ceil(log2(sizeof(FreeBlockPrefix)));
+		size_t k = (size_t)ceil(log2(size));
+		k = k < LogMinBlockSize ? LogMinBlockSize : k;
 		size_t j = k;
 		for (; j <= m_N; ++j)
 		{
