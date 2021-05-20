@@ -8,11 +8,11 @@
 | lab7.3 | finished |
 | lab7.4 | finished |
 | lab8.1 | finished |
-| lab8.2 | started |
+| lab8.2 | finished |
 | lab8.3 |impossible |
-| lab9.1 | untested |
+| lab9.1 | started |
 | lab9.2 | untested |
-| Курсач | started  |
+| Курсач | finished  |
 # lab6
 
 ## 0 
